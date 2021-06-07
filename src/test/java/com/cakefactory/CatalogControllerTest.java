@@ -10,9 +10,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
 @SpringBootTest
 @AutoConfigureMockMvc
-class IndexControllerTest {
+class CatalogControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -20,9 +22,8 @@ class IndexControllerTest {
     @Test
     @DisplayName("index page returns the landing page")
     void returnsLandingPage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Cake Factory")));
+                .andExpect(model().attribute("items", Matchers.hasSize(6)));
     }
-
 }

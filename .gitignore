@@ -32,7 +32,6 @@ out/
 ### VS Code ###
 .vscode/
 ### Gradle template
-.gradle
 **/build/
 !src/**/build/
 
@@ -120,10 +119,8 @@ cmake-build-*/
 .idea/**/mongoSettings.xml
 
 # File-based project format
-*.iws
 
 # IntelliJ
-out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
