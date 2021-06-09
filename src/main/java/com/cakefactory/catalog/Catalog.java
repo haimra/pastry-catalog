@@ -1,4 +1,4 @@
-package com.cakefactory.domain;
+package com.cakefactory.catalog;
 
 import java.util.List;
 

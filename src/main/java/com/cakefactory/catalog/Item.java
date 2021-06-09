@@ -1,11 +1,13 @@
-package com.cakefactory.domain;
+package com.cakefactory.catalog;
+
+import java.math.BigDecimal;
 
 public class Item {
     private final String id;
     private final String title;
-    private final float price;
+    private final BigDecimal price;
 
-    public Item(String id, String title, float price) {
+    public Item(String id, String title, BigDecimal price) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -19,7 +21,7 @@ public class Item {
         return title;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 }
