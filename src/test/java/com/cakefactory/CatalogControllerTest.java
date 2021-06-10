@@ -3,6 +3,8 @@ package com.cakefactory;
 import com.cakefactory.catalog.Catalog;
 import com.cakefactory.catalog.CatalogController;
 import com.cakefactory.catalog.Item;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.*;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,27 +21,45 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest(controllers = CatalogController.class)
 class CatalogControllerTest {
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
+    @Autowired
+    private WebClient webClient;
     @MockBean
-    Catalog catalog;
+    private Catalog catalog;
 
     @Test
-    @DisplayName("index page returns the landing page")
-    void returnsLandingPage() throws Exception {
+    @DisplayName("index page is populated with items and the route to catalog")
+    void itemArePopulatedAndRoutToCatalog() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().attribute("items", Matchers.hasSize(6)));
+                .andExpect(model().attribute("items", Matchers.hasSize(6)))
+                .andExpect(view().name("catalog"));
+    }
+
+    @Test
+    @DisplayName("index page returns the landing page with our pastries displayed")
+    void returnsLandingPage() throws Exception {
+        HtmlPage page = webClient.getPage("/");
+        assertThat(page.getTitleText()).startsWith("Cake Factory");
+        final DomNodeList<DomNode> nodes = page.querySelectorAll(".card-body");
+        assertThat(nodes.size()).isEqualTo(6);
+        assertThat(nodes.stream()
+                .filter(node->node.getFirstByXPath("h4/a[text()='All Butter Croissant']")!=null)
+                .count()
+        ).isEqualTo(1);
     }
 
     @BeforeEach
-    void beforeEach(){
-       Mockito.when(catalog.listAll()).thenReturn(items);
+    void beforeEach() {
+        Mockito.when(catalog.listAll()).thenReturn(items);
     }
 
     private static final List<Item> items = Arrays.asList(
