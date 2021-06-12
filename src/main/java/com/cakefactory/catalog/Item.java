@@ -1,27 +1,26 @@
 package com.cakefactory.catalog;
 
-import java.math.BigDecimal;
+import lombok.*;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
+
+@Data
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+@Entity
+@Table(name = "catalog" )
 public class Item {
-    private final String id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+    private Date createdAt;
     private final String title;
     private final BigDecimal price;
 
-    public Item(String id, String title, BigDecimal price) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
+    @PrePersist
+    void createdAt() {
+        this.createdAt = new Date();
     }
 }

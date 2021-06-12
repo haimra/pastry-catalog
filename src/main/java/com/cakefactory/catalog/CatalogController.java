@@ -10,16 +10,16 @@ import java.util.Map;
 @Controller
 public class CatalogController {
 
-    private final Catalog catalog;
+    private final CatalogRepository catalog;
 
     @Autowired
-    CatalogController(Catalog catalog) {
+    CatalogController(CatalogRepository catalog) {
         this.catalog = catalog;
     }
 
     @GetMapping("/")
     public ModelAndView catalog(Map<String, Object> model) {
-        model.put("items", catalog.listAll());
+        model.put("items", catalog.findAll());
         return new ModelAndView("catalog", model);
     }
 }
