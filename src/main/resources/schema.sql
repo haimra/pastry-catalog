@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS catalog (
-  id bigint not null,
-  created_at timestamp not null,
-  title varchar(50) not null,
-  price numeric not null
+  id bigint NOT NULL PRIMARY KEY,
+  title VARCHAR(256) NOT NULL,
+  price DECIMAL  NOT NULL
 );

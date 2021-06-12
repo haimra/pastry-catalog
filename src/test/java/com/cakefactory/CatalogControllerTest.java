@@ -59,7 +59,7 @@ class CatalogControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        Mockito.when(catalog.listAll()).thenReturn(items);
+        Mockito.when(catalog.getItems()).thenReturn(items);
     }
 
     private static final List<Item> items = Arrays.asList(

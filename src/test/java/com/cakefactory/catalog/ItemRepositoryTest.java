@@ -1,5 +1,6 @@
 package com.cakefactory.catalog;
 
+import com.cakefactory.catalog.repostories.ItemRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
-class JpaCatalogRepositoryTest {
+class ItemRepositoryTest {
 
     @Autowired
-    private CatalogRepository repository;
+    private ItemRepository repository;
 
     @Test
     void findAll(){
-        repository.findAll();
+        assertDoesNotThrow(()->repository.findAll());
     }
 }
