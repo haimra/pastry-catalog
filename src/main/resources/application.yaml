@@ -1,11 +1,12 @@
 spring:
-logging:
+  debug: true
+  logging:
   level:
     org.springframework.web: DEBUG
     guru.springframework.controllers: DEBUG
     org.hibernate: DEBUG
-datasource:
-    url: jdbc:postgresql://localhost:5432/database/public
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/postgres"
     username: postgres
     password: postgres
     initialization-mode: always
