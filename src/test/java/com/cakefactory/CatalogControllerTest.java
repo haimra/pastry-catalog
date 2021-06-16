@@ -52,22 +52,21 @@ class CatalogControllerTest {
         final DomNodeList<DomNode> nodes = page.querySelectorAll(".card-body");
         assertThat(nodes.size()).isEqualTo(6);
         assertThat(nodes.stream()
-                .filter(node->node.getFirstByXPath("h4/a[text()='All Butter Croissant']")!=null)
+                .filter(node->node.getFirstByXPath("h4/a[text()='All Butter Croissant']/form/input/value")!=null)
                 .count()
         ).isEqualTo(1);
     }
-
     @BeforeEach
     void beforeEach() {
         Mockito.when(catalog.getItems()).thenReturn(items);
     }
 
     private static final List<Item> items = Arrays.asList(
-            new Item("All Butter Croissant", new BigDecimal("0.75")),
-            new Item("Chocolate Croissant", new BigDecimal("0.95")),
-            new Item("Fresh Baguette", new BigDecimal("1.60")),
-            new Item("Red Velvet", new BigDecimal("3.95")),
-            new Item("Victoria Sponge", new BigDecimal("5.45")),
-            new Item("Carrot Cake", new BigDecimal("3.45"))
+            new Item("sku-1","All Butter Croissant", new BigDecimal("0.75")),
+            new Item("sku-2","Chocolate Croissant", new BigDecimal("0.95")),
+            new Item("sku-3","Fresh Baguette", new BigDecimal("1.60")),
+            new Item("sku-4","Red Velvet", new BigDecimal("3.95")),
+            new Item("sku-5","Victoria Sponge", new BigDecimal("5.45")),
+            new Item("sku-6","Carrot Cake", new BigDecimal("3.45"))
     );
 }

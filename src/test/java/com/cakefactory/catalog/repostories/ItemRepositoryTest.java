@@ -38,7 +38,7 @@ class ItemRepositoryTest {
         final String title = "baguette";
         final BigDecimal price = new BigDecimal("9.97");
         ItemEntity item = new ItemEntity();
-        item.id = 1L;
+        item.sku = "sku1";
         item.price = price;
         item.title = title;
         itemRepository.save(item);

@@ -20,6 +20,7 @@ public class CatalogController {
     @GetMapping("/")
     public ModelAndView catalog(Map<String, Object> model) {
         model.put("items", catalog.getItems());
+        model.put("basketTotal",0);
         return new ModelAndView("catalog", model);
     }
 }

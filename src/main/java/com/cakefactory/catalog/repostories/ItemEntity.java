@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 @Table(name = "catalog")
 public class ItemEntity {
     @Id
-    Long id;
+    @NotBlank
+    String sku;
     @NotBlank
     String title;
     @NotNull
