@@ -2,7 +2,7 @@ package com.cakefactory;
 
 import com.cakefactory.catalog.Catalog;
 import com.cakefactory.catalog.CatalogController;
-import com.cakefactory.catalog.Item;
+import com.cakefactory.domain.Item;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.hamcrest.Matchers;

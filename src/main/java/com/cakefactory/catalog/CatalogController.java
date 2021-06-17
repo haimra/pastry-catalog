@@ -1,5 +1,6 @@
 package com.cakefactory.catalog;
 
+import com.cakefactory.domain.Basket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +12,18 @@ import java.util.Map;
 public class CatalogController {
 
     private final Catalog catalog;
+    private final Basket basket;
 
     @Autowired
-    CatalogController(Catalog catalog) {
+    CatalogController(Catalog catalog, Basket basket) {
         this.catalog = catalog;
+        this.basket = basket;
     }
 
     @GetMapping("/")
     public ModelAndView catalog(Map<String, Object> model) {
         model.put("items", catalog.getItems());
-        model.put("basketTotal",0);
+        model.put("basketTotal", basket.getBasketTotal());
         return new ModelAndView("catalog", model);
     }
 }

@@ -1,4 +1,4 @@
-package com.cakefactory.catalog;
+package com.cakefactory.domain;
 
 import lombok.*;
 
