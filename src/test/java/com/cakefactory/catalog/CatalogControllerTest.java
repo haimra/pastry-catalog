@@ -1,8 +1,6 @@
-package com.cakefactory;
+package com.cakefactory.catalog;
 
-import com.cakefactory.catalog.Catalog;
-import com.cakefactory.catalog.CatalogController;
-import com.cakefactory.domain.Item;
+import com.cakefactory.basket.Basket;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.hamcrest.Matchers;
@@ -34,6 +32,8 @@ class CatalogControllerTest {
     private WebClient webClient;
     @MockBean
     private Catalog catalog;
+    @MockBean
+    private Basket basket;
 
     @Test
     @DisplayName("index page is populated with items and the route to catalog")
@@ -49,13 +49,21 @@ class CatalogControllerTest {
     void returnsLandingPage() throws Exception {
         HtmlPage page = webClient.getPage("/");
         assertThat(page.getTitleText()).startsWith("Cake Factory");
-        final DomNodeList<DomNode> nodes = page.querySelectorAll(".card-body");
-        assertThat(nodes.size()).isEqualTo(6);
-        assertThat(nodes.stream()
-                .filter(node->node.getFirstByXPath("h4/a[text()='All Butter Croissant']/form/input/value")!=null)
+        final DomNodeList<DomNode> bodyNodes = page.querySelectorAll(".card-body");
+        assertThat(bodyNodes.size()).isEqualTo(6);
+        assertThat(bodyNodes.stream()
+                .filter(node->node.getFirstByXPath("h4/a[text()='All Butter Croissant']")!=null)
+                .count()
+        ).isEqualTo(1);
+        //card-footer
+        final DomNodeList<DomNode> footerNodes = page.querySelectorAll(".card-footer");
+        assertThat(footerNodes.size()).isEqualTo(6);
+        assertThat(footerNodes.stream()
+                .filter(node->node.getFirstByXPath("form/input[@value='sku-6']")!=null)
                 .count()
         ).isEqualTo(1);
     }
+
     @BeforeEach
     void beforeEach() {
         Mockito.when(catalog.getItems()).thenReturn(items);

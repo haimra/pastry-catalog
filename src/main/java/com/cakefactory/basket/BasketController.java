@@ -1,7 +1,6 @@
 package com.cakefactory.basket;
 
-import com.cakefactory.domain.Basket;
-import com.cakefactory.domain.Item;
+import com.cakefactory.catalog.Item;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +22,8 @@ public class BasketController {
 
     @PostMapping
     public ModelAndView addToBasket(Map<String, Object> model, String sku) {
+        //At the moment we only need to update the count, so lets
+        //add a fake item
         basket.addItem(new Item(sku,"t",new BigDecimal("99.9")));
         model.put(BASKET_TOTAL,basket.getBasketTotal());
         return new ModelAndView("redirect:/", model);

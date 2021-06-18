@@ -1,7 +1,7 @@
 package com.cakefactory.catalog.repostories;
 
 import com.cakefactory.catalog.Catalog;
-import com.cakefactory.domain.Item;
+import com.cakefactory.catalog.Item;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
