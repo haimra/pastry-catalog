@@ -1,5 +1,6 @@
-ALTER TABLE catalog ADD COLUMN sku VARCHAR(32);
+ALTER TABLE catalog ADD COLUMN sku VARCHAR(32) NULL;
 UPDATE catalog SET sku = 'suk' || id;
 ALTER TABLE catalog DROP CONSTRAINT catalog_pkey;
 ALTER TABLE catalog DROP COLUMN id;
+ALTER TABLE catalog ALTER COLUMN sku SET NOT NULL;
 ALTER TABLE catalog ADD PRIMARY KEY (sku);

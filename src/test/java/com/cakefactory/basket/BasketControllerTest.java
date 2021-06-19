@@ -25,10 +25,18 @@ class BasketControllerTest {
     private WebClient webClient;
 
     @Test
-    @DisplayName("index page is populated with items and the route to catalog")
+    @DisplayName("When add to basket redirect back to catalog page")
     void addItemsToBasketStayInTheSession() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/basket", Map.of("sku", "sku-1")))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
+    }
+
+    @Test
+    @DisplayName("When click on basket got to order page")
+    void clickOnBasketMoveToOrder() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/basket"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(view().name("order"));
     }
 }

@@ -5,6 +5,24 @@
             <h1>Your order is now complete</h1>
             <p>You should pay in cash or by card upon delivery.</p>
             <p>Thanks for placing an order with Cake Factory!</p>
+            <table class="table">
+              <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#basket}}
+                    {{#items}}
+                        <tr>
+                           <td scope="row">{{title}}</td>
+                           <td >{{count}}</td>
+                        </tr>
+                    {{/items}}
+                {{/basket}}
+              </tbody>
+             </table>
         </div>
     </div>
 </div>

@@ -29,18 +29,19 @@ class ItemRepositoryTest {
     private Catalog catalog;
 
     @BeforeEach
-    void beforeEach(){
-         catalog = new JpaCatalogService(itemRepository);
+    void beforeEach() {
+        catalog = new JpaCatalogService(itemRepository);
+        final Iterable<ItemEntity> all = itemRepository.findAll();
+        for (ItemEntity item:all) {
+            itemRepository.delete(item);
+        }
     }
 
     @Test
     void findAll() {
         final String title = "baguette";
         final BigDecimal price = new BigDecimal("9.97");
-        ItemEntity item = new ItemEntity();
-        item.sku = "sku1";
-        item.price = price;
-        item.title = title;
+        ItemEntity item = createItem("sku1",title, price);
         itemRepository.save(item);
 
         final Iterable<Item> all = catalog.getItems();
@@ -48,5 +49,25 @@ class ItemRepositoryTest {
         assertThat(itemRead).isNotNull();
         assertThat(itemRead.getPrice()).isEqualTo(price);
         assertThat(itemRead.getTitle()).isEqualTo(title);
+    }
+
+    @Test
+    void findBySku() {
+        final String title = "baguette";
+        final BigDecimal price = new BigDecimal("9.97");
+        itemRepository.save( createItem("sku1",title, price));
+        itemRepository.save(createItem("sku2","focaccia", new BigDecimal("5.56")));
+        final Item itemRead = catalog.getItem("sku1");
+        assertThat(itemRead).isNotNull();
+        assertThat(itemRead.getPrice()).isEqualTo(price);
+        assertThat(itemRead.getTitle()).isEqualTo(title);
+    }
+
+    private ItemEntity createItem(String sku, String title, BigDecimal price) {
+        ItemEntity item = new ItemEntity();
+        item.sku = sku;
+        item.price = price;
+        item.title = title;
+        return item;
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,17 +13,22 @@ import java.util.Map;
 @Component
 @SessionScope
 public class Basket {
-    private Map<Item, Integer> items = new HashMap<>();
+    private Map<String, BasketItem> items = new HashMap<>();
 
     public int getBasketTotal() {
         return items.values()
                 .stream()
-                .mapToInt(Integer::intValue)
+                .mapToInt(BasketItem::getCount)
                 .sum();
     }
 
     public void addItem(Item item) {
-        var count = items.getOrDefault(item, 0);
-        items.put(item, ++count);
+        var basketItem = items.getOrDefault(item.getSku(), new BasketItem(item));
+        basketItem.incrementCount();
+        items.put(item.getSku(),basketItem);
+    }
+
+    public Collection<BasketItem> getItems() {
+        return items.values();
     }
 }

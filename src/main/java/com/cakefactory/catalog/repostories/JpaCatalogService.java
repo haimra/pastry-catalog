@@ -22,4 +22,13 @@ class JpaCatalogService implements Catalog {
                 .map(entity -> new Item(entity.sku, entity.title, entity.price))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Item getItem(String sku) {
+        return itemRepository.findById(sku)
+                .map(entity->new Item(entity.sku, entity.title, entity.price))
+                .orElse(null);
+    }
+
+
 }

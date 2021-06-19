@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Controller
 public class CatalogController {
-
     private final Catalog catalog;
     private final Basket basket;
 
@@ -23,7 +22,7 @@ public class CatalogController {
     @GetMapping("/")
     public ModelAndView catalog(Map<String, Object> model) {
         model.put("items", catalog.getItems());
-        model.put("basketTotal", basket.getBasketTotal());
+        model.put("basket", basket);
         return new ModelAndView("catalog", model);
     }
 }
