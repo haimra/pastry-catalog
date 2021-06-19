@@ -29,6 +29,4 @@ class JpaCatalogService implements Catalog {
                 .map(entity->new Item(entity.sku, entity.title, entity.price))
                 .orElse(null);
     }
-
-
 }

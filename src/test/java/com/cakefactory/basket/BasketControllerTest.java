@@ -1,5 +1,6 @@
 package com.cakefactory.basket;
 
+import com.cakefactory.catalog.Catalog;
 import com.gargoylesoftware.htmlunit.WebClient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ class BasketControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private Basket basket;
+    @MockBean
+    private Catalog catalog;
 
     @Autowired
     private WebClient webClient;
@@ -36,6 +39,14 @@ class BasketControllerTest {
     @DisplayName("When click on basket got to order page")
     void clickOnBasketMoveToOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/basket"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(view().name("order"));
+    }
+
+    @Test
+    @DisplayName("When click delete on basket item, item removed")
+    void removeItemFromBasket() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/basket/remove",Map.of("sku", "sku-1")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(view().name("order"));
     }

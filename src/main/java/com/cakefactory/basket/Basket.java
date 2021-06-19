@@ -28,6 +28,15 @@ public class Basket {
         items.put(item.getSku(),basketItem);
     }
 
+    public void removeItem(Item item){
+        final String sku = item.getSku();
+        var basketItem = items.get(sku);
+        basketItem.decrementCount();
+        if(basketItem.getCount()==0){
+            items.remove(sku);
+        }
+    }
+
     public Collection<BasketItem> getItems() {
         return items.values();
     }

@@ -16,6 +16,14 @@ public class BasketItem {
         count++;
     }
 
+    void decrementCount() {
+        if (count > 0) {
+            count--;
+            return;
+        }
+        throw new IllegalStateException("Can't have negative count of items");
+    }
+
     public String getTitle() {
         return item.getTitle();
     }

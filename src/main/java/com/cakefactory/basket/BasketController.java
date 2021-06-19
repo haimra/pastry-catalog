@@ -36,4 +36,10 @@ public class BasketController {
         model.put(BASKET_ATTRIBUTE, basket);
         return new ModelAndView("order");
     }
+
+    @PostMapping("remove")
+    public ModelAndView remove(Map<String, Object> model, String sku) {
+        model.put(BASKET_ATTRIBUTE, basket);
+        return new ModelAndView("order");
+    }
 }
