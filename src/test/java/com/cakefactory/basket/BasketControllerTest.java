@@ -40,14 +40,14 @@ class BasketControllerTest {
     void clickOnBasketMoveToOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/basket"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(view().name("order"));
+                .andExpect(view().name("basket"));
     }
 
     @Test
     @DisplayName("When click delete on basket item, item removed")
     void removeItemFromBasket() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/basket/remove",Map.of("sku", "sku-1")))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(view().name("order"));
+        mockMvc.perform(MockMvcRequestBuilders.post("/basket/delete",Map.of("sku", "sku-1")))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(view().name("redirect:/basket"));
     }
 }

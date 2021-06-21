@@ -1,14 +1,12 @@
 package com.cakefactory.basket;
 
 import com.cakefactory.catalog.Catalog;
-import com.cakefactory.catalog.Item;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
 import java.util.Map;
 
 @Controller
@@ -34,12 +32,14 @@ public class BasketController {
     @GetMapping
     public ModelAndView checkout(Map<String, Object> model) {
         model.put(BASKET_ATTRIBUTE, basket);
-        return new ModelAndView("order");
+        return new ModelAndView("basket");
     }
 
-    @PostMapping("remove")
-    public ModelAndView remove(Map<String, Object> model, String sku) {
+    @PostMapping("delete")
+    public ModelAndView delete(Map<String, Object> model, String sku) {
+        final var item = catalog.getItem(sku);
+        basket.removeItem(item);
         model.put(BASKET_ATTRIBUTE, basket);
-        return new ModelAndView("order");
+        return new ModelAndView("redirect:/basket");
     }
 }

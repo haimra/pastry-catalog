@@ -18,21 +18,21 @@ public class Basket {
     public int getBasketTotal() {
         return items.values()
                 .stream()
-                .mapToInt(BasketItem::getCount)
+                .mapToInt(BasketItem::getQty)
                 .sum();
     }
 
     public void addItem(Item item) {
         var basketItem = items.getOrDefault(item.getSku(), new BasketItem(item));
-        basketItem.incrementCount();
+        basketItem.incrementQty();
         items.put(item.getSku(),basketItem);
     }
 
     public void removeItem(Item item){
         final String sku = item.getSku();
         var basketItem = items.get(sku);
-        basketItem.decrementCount();
-        if(basketItem.getCount()==0){
+        basketItem.decrementQty();
+        if(basketItem.getQty() == 0){
             items.remove(sku);
         }
     }
