@@ -29,11 +29,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+          {{#basket}}
           <li class="nav-item">
-            <a class="nav-link" href="/basket">Basket: <span class="basket-total">{{basket.basketTotal}}</span> item(s)</a>
+            <a class="nav-link" href="/basket">Basket: <span class="basket-total">{{basketTotal}}</span> item(s)</a>
           </li>
+          {{/basket}}
           <li class="nav-item">
             <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Sign Up
               <span class="sr-only">(current)</span>
             </a>
           </li>
