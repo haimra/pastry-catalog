@@ -1,7 +1,8 @@
 create TABLE IF NOT EXISTS account(
+  id bigint GENERATED ALWAYS AS IDENTITY,
   email_address VARCHAR(32) NOT NULL,
   password VARCHAR(32) NOT NULL,
-  CONSTRAINT account_pkey PRIMARY KEY (email_address)
+  CONSTRAINT account_pkey PRIMARY KEY (id)
 );
 create TABLE IF NOT EXISTS address(
   id bigint GENERATED ALWAYS AS IDENTITY,

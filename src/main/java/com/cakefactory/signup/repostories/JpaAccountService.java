@@ -2,8 +2,10 @@ package com.cakefactory.signup.repostories;
 
 import com.cakefactory.signup.Account;
 import com.cakefactory.signup.AccountService;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class JpaAccountService implements AccountService {
 
     private final AccountRepository accountRepository;
