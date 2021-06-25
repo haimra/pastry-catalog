@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SignUpController {
 
     private final RegistrationService registrationService;
+
     @Autowired
     public SignUpController(RegistrationService registrationService) {
         this.registrationService = registrationService;
@@ -25,7 +26,10 @@ public class SignUpController {
 
     @PostMapping
     public ModelAndView signup(@ModelAttribute SignUp signUp) {
-        registrationService.register(signUp.getAccount(),signUp.getAddress());
+        if (registrationService.accountExists(signUp.getEmailAddress())) {
+            return new ModelAndView("redirect:/login");
+        }
+        registrationService.register(signUp.getAccount(), signUp.getAddress());
         return new ModelAndView("redirect:/");
     }
 }
