@@ -22,9 +22,7 @@ class SignUpControllerTest {
     @MockBean
     private Basket basket;
     @MockBean
-    private AccountService accountService;
-    @MockBean
-    private AddressService addressService;
+    private RegistrationService registrationService;
 
     @Test
     @DisplayName("when clicking on signup form tool bar open sign up page")

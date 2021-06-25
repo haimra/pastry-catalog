@@ -14,8 +14,8 @@ public class JpaAddressService implements AddressService {
     }
 
     @Override
-    public Long save(Address address) {
-        final var addressEntity = addressRepository.save(AddressEntity.builder()
+    public Long save(Address address,String email) {
+        final var addressEntity = addressRepository.save(AddressEntity.builder(email)
                 .addressLine1(address.getAddressLine1())
                 .addressLine2(address.getAddressLine2())
                 .postcode(address.getPostcode()).build());

@@ -20,9 +20,16 @@ public class AddressEntity {
     long id;
     @NotBlank
     @NotNull
+    String emailAddress;
+    @NotBlank
+    @NotNull
     String addressLine1;
     String addressLine2;
     @NotBlank
     @NotNull
     String postcode;
+
+    public static AddressEntityBuilder builder(String emailAddress) {
+        return new AddressEntityBuilder().emailAddress(emailAddress);
+    }
 }

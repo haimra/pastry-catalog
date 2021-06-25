@@ -19,6 +19,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 class JpaAddressServiceTest {
+    private static final String EMAIL = "user@email.com";
     @Autowired
     private AddressRepository addressRepository;
     private AddressService addressService;
@@ -39,7 +40,7 @@ class JpaAddressServiceTest {
                 .addressLine2(addressLine2)
                 .postcode(postcode)
                 .build();
-        final Long id = addressService.save(address);
+        final Long id = addressService.save(address, EMAIL);
 
         final Optional<AddressEntity> addressRepositoryById = addressRepository.findById(id);
         assertThat(addressRepositoryById).isPresent();
@@ -57,7 +58,7 @@ class JpaAddressServiceTest {
                 .addressLine1(addressLine1)
                 .postcode(postcode)
                 .build();
-        final Long id = addressService.save(address);
+        final Long id = addressService.save(address,EMAIL);
 
         final Optional<AddressEntity> addressRepositoryById = addressRepository.findById(id);
         assertThat(addressRepositoryById).isPresent();

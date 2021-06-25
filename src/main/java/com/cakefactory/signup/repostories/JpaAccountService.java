@@ -17,4 +17,11 @@ public class JpaAccountService implements AccountService {
     public void save(Account account) {
         accountRepository.save(new AccountEntity(account.getEmailAddress(), account.getPassword()));
     }
+
+    @Override
+    public boolean exists(String emailAddress) {
+        return accountRepository
+                .findByEmailAddress(emailAddress)
+                .isPresent();
+    }
 }

@@ -2,5 +2,5 @@ package com.cakefactory.signup;
 
 
 public interface AddressService {
-    Long save(Address address);
+    Long save(Address address,String email);
 }

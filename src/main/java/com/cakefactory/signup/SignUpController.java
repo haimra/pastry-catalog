@@ -12,13 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/signup")
 public class SignUpController {
 
-    private final AddressService addressService;
-    private final AccountService accountService;
-
+    private final RegistrationService registrationService;
     @Autowired
-    public SignUpController(AddressService addressService, AccountService accountService) {
-        this.addressService = addressService;
-        this.accountService = accountService;
+    public SignUpController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
     }
 
     @GetMapping
@@ -28,8 +25,7 @@ public class SignUpController {
 
     @PostMapping
     public ModelAndView signup(@ModelAttribute SignUp signUp) {
-        addressService.save(signUp.getAddress());
-        accountService.save(signUp.getAccount());
+        registrationService.register(signUp.getAccount(),signUp.getAddress());
         return new ModelAndView("redirect:/");
     }
 }

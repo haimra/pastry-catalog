@@ -3,7 +3,7 @@ package com.cakefactory.signup;
 import lombok.*;
 
 @Data
-@Builder(toBuilder = true)
+@Builder(toBuilder = true, access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Setter(value = AccessLevel.PACKAGE)

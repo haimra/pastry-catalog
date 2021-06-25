@@ -45,4 +45,14 @@ class JpaAccountServiceTest {
         assertThat(accountRepositoryById.get().getEmailAddress()).isEqualTo(emailAddress);
         assertThat(accountRepositoryById.get().getPassword()).isEqualTo(password);
     }
+
+    @Test
+    void checkAccountExist(){
+        final String emailAddress = "user@domain.com";
+        final String password = "secret123^";
+        accountService.save(new Account(emailAddress, password));
+
+        assertThat(accountService.exists(emailAddress)).isTrue();
+        assertThat(accountService.exists("not"+emailAddress)).isFalse();
+    }
 }
