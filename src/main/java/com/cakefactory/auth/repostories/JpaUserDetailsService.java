@@ -1,6 +1,6 @@
-package com.cakefactory.security.repostories;
+package com.cakefactory.auth.repostories;
 
-import com.cakefactory.security.User;
+import com.cakefactory.auth.User;
 import com.cakefactory.signup.repostories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

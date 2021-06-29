@@ -1,4 +1,4 @@
-package com.cakefactory.security;
+package com.cakefactory.auth;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Data
 @RequiredArgsConstructor
-public class User implements UserDetails {
+public class User implements UserDetails{
     @NotNull
     @NotBlank
     private final String username;
