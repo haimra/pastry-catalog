@@ -21,6 +21,7 @@
                         <td>{{total}}</td>
                         <td class="col-md-1">
                             <form method="post" action="/basket/delete">
+                                <input type="hidden" name="_csrf" value="{{_csrf.token}}">
                                 <input name="sku" value="{{item.sku}}" type="hidden"/>
                                 <button class="btn btn-danger btn-sm remove-item" type="submit">Remove</button>
                             </form>
@@ -36,6 +37,7 @@
         <div class="col-lg-12 mt-4 mb-4">
             <h1>Delivery address</h1>
             <form method="post" action="/order">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}">
                 <div class="form-group">
                     <label for="addressLine1">Address Line 1</label>
                     <input required type="text" class="form-control" name="addressLine1" id="addressLine1" placeholder="Address Line 1">

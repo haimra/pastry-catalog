@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 class JpaRegistrationServiceTest {
+    private static final String ENCODED_PASSWORD = "secret123";
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
@@ -38,13 +41,14 @@ class JpaRegistrationServiceTest {
     @Test
     void successfulRegister() {
         final String emailAddress = "email@test.com";
-        final var account = new Account(emailAddress, "secreat123");
+        final var account = new Account(emailAddress, ENCODED_PASSWORD);
         final String addressLine1 = "Address Line 1";
         final String postcode = "POST";
         final var address = Address.builder()
                 .addressLine1(addressLine1)
                 .postcode(postcode)
                 .build();
+        when(passwordEncoder.encode(anyString())).thenReturn("secret123");
         registrationService.register(account, address);
 
         final Optional<AddressEntity> addressRepositoryById = addressRepository.findByEmailAddress(emailAddress);

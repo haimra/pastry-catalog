@@ -4,6 +4,7 @@ import com.cakefactory.basket.Basket;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +14,22 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest(controllers = SignUpController.class)
 class SignUpControllerTest {
     @Autowired
+    private WebApplicationContext context;
     private MockMvc mockMvc;
     @MockBean
     private Basket basket;
@@ -50,6 +56,7 @@ class SignUpControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/signup")
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .content(form))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
@@ -71,6 +78,7 @@ class SignUpControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/signup")
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .content(form))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
@@ -85,5 +93,13 @@ class SignUpControllerTest {
                 new BasicNameValuePair("addressLine2", address.getAddressLine2()),
                 new BasicNameValuePair("postcode", address.getPostcode())
         )));
+    }
+
+    @BeforeEach
+    void setup() {
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
     }
 }

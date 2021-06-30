@@ -16,7 +16,6 @@ public class PrincipalAttributeMapperFilter implements Filter {
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             request.setAttribute("email", authentication.getName());
         }
-
         chain.doFilter(request, response);
     }
 }

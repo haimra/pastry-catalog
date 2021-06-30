@@ -12,3 +12,5 @@ spring:
     initialization-mode: always
   flyway:
     baseline-on-migrate: true
+  mustache:
+    expose-request-attributes: true

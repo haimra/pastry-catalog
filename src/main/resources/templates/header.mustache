@@ -41,18 +41,21 @@
           </li>
           {{#email}}
           <li class="nav-item">
-            {{email}}
+            <div class="nav-link">{{email}}
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="logout">Logout
               <span class="sr-only">(current)</span>
             </a>
           </li>
           {{/email}}
-          {{email}}
           <li class="nav-item">
             <a class="nav-link" href="/signup">Sign Up
               <span class="sr-only">(current)</span>
             </a>
           </li>
+          {{^email}}
           <li class="nav-item">
             <a class="nav-link" href="/login">Login
               <span class="sr-only">(current)</span>

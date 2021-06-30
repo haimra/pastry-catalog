@@ -46,7 +46,7 @@ class JpaAccountServiceTest {
         final Optional<AccountEntity> accountRepositoryById = accountRepository.findById(emailAddress);
         assertThat(accountRepositoryById).isPresent();
         assertThat(accountRepositoryById.get().getEmailAddress()).isEqualTo(emailAddress);
-        assertThat(accountRepositoryById.get().getPassword()).isEqualTo(password);
+        assertThat(accountRepositoryById.get().getPassword()).isEqualTo(mockEncode(password));
     }
 
     @Test
@@ -68,8 +68,7 @@ class JpaAccountServiceTest {
             return new PasswordEncoder() {
                 @Override
                 public String encode(CharSequence rawPassword) {
-                    return new StringBuilder(rawPassword.toString())
-                            .reverse().toString();
+                    return mockEncode(rawPassword);
                 }
 
                 @Override
@@ -83,6 +82,10 @@ class JpaAccountServiceTest {
                 }
             };
         }
+    }
 
+    private static String mockEncode(CharSequence rawPassword) {
+        return new StringBuilder(rawPassword.toString())
+                .reverse().toString();
     }
 }
