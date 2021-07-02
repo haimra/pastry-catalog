@@ -14,11 +14,22 @@ public class JpaAddressService implements AddressService {
     }
 
     @Override
-    public Long save(Address address,String email) {
+    public Long save(Address address, String email) {
         final var addressEntity = addressRepository.save(AddressEntity.builder(email)
                 .addressLine1(address.getAddressLine1())
                 .addressLine2(address.getAddressLine2())
                 .postcode(address.getPostcode()).build());
         return addressEntity.id;
+    }
+
+    @Override
+    public Address findByEmail(String email) {
+        return addressRepository.findByEmailAddress(email)
+                .map(addressEntity -> Address.builder()
+                        .addressLine1(addressEntity.addressLine1)
+                        .addressLine2(addressEntity.addressLine2)
+                        .postcode(addressEntity.postcode)
+                        .build()
+                ).orElse(null);
     }
 }
