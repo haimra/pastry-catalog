@@ -6,7 +6,7 @@ import lombok.*;
 @Builder(toBuilder = true, access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(value = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PUBLIC)
 @Getter
 public class Address {
     private String addressLine1;

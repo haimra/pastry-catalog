@@ -39,10 +39,6 @@
             </a>
           </li>
           {{#email}}
-          <li class="nav-item">
-            <div class="nav-link">{{email}}
-            </div>
-          </li>
            <li class="nav-item">
              <!-- <a class="nav-link" id="logoutLink" href="/logout">Logout
                <span class="sr-only">(current)</span>
@@ -51,7 +47,9 @@
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}">
                 <input class="nav-link"  type="submit" value="Logout"/>
               </form>
-           </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/account" id="current-user">{{email}}</a>
+            </li>
            {{/email}}
            <li class="nav-item">
              <a class="nav-link" href="/signup">Sign Up

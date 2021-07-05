@@ -23,6 +23,20 @@ public class JpaAddressService implements AddressService {
     }
 
     @Override
+    public void update(Address address, String email) {
+        final var byEmailAddress = addressRepository.findByEmailAddress(email);
+        final var updateAddress = byEmailAddress.map(
+                addressEntity -> {
+                    addressEntity.addressLine1 = address.getAddressLine1();
+                    addressEntity.addressLine2 = address.getAddressLine2();
+                    addressEntity.postcode = address.getPostcode();
+                    return addressEntity;
+                }
+        ).orElseThrow(IllegalStateException::new);
+        addressRepository.save(updateAddress);
+    }
+
+    @Override
     public Address findByEmail(String email) {
         return addressRepository.findByEmailAddress(email)
                 .map(addressEntity -> Address.builder()
