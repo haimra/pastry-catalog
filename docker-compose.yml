@@ -6,7 +6,7 @@ services:
       - ./data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER={postgres.user}
+      - POSTGRES_PASSWORD={postgres.password}
     ports:
       - '5432:5432'

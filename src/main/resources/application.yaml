@@ -14,3 +14,19 @@ spring:
     baseline-on-migrate: true
   mustache:
     expose-request-attributes: true
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: ${facebook.client-id}
+            client-secret: ${facebook.client-secret}
+        provider:
+          facebook:
+            user-name-attribute: email
+server:
+  port: 8443
+  ssl:
+    key-alias: "cakefactory"
+    key-store: "classpath:cakefactory.p12"
+    key-store-password: "changeit"

@@ -39,13 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
 
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .usernameParameter("emailAddress")
+                .oauth2Login();
+                //.loginPage("/login")
+                //.usernameParameter("emailAddress")
 
-                .and()
-                .logout()
-                .logoutSuccessUrl("/");
+                //.and()
+                //.logout()
+                //.logoutSuccessUrl("/");
     }
 
     @Bean
